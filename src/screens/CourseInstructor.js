@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function CourseInstructor() {
   const [preferrence, setPreferrence] = useState({});
@@ -49,6 +49,13 @@ function CourseInstructor() {
     const data = await response.json()
     console.log(data)
   }
+
+  useEffect(()=>{
+    getInstructors();
+  }, [])
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
