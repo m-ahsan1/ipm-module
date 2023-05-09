@@ -2,12 +2,19 @@ import React from "react";
 import './style.css'
 import CourseInstructor from "./screens/CourseInstructor";
 import LabInstructor from "./screens/LabInstructor";
+import MainPage from "./screens/MainPage";
+import { Route, Router,Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="main-screen">
-      <LabInstructor/ >
-    </div>
+    <Routes>
+        <Route path='/' element={<MainPage />}/>
+        <Route path='/course' element={<CourseInstructor />}/>
+        <Route path='/lab' element={<LabInstructor />}/>
+
+
+      </Routes>
   );
 }
 

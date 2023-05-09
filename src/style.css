@@ -2,6 +2,8 @@
 
   background-color: #e6e6e6;
   width: 100%;
+
+
   margin: 0 auto;
   padding: 20px;
   overflow: auto;
@@ -22,7 +24,7 @@
   font-size: 40px;
   text-align: center;
   text-transform: uppercase;
-  margin: 40px;
+
 }
 
 .main1 input {
@@ -39,6 +41,9 @@
   font-size: 17px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.form {
+  display: flex;
+}
 
 .main1 button {
 
@@ -51,4 +56,15 @@
   border-radius: 6px;
   background-color: #fff;
 
+}
+.instructor {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.instructor:hover {
+  background-color: #f0f0f0;
 }
