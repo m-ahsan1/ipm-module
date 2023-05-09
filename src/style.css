@@ -1,6 +1,14 @@
+* {
+  margin: 2px;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+
 .container1{
 
-  background-color: #e6e6e6;
+  background-color: #8aa6a7;
   width: 100%;
 
 
@@ -54,7 +62,8 @@
   width: 50%;
   border: 0;
   border-radius: 6px;
-  background-color: #fff;
+  background-color: #281db9;
+  color: #ccc;
 
 }
 .instructor {
