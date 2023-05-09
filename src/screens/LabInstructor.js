@@ -58,7 +58,7 @@ function LabInstructor() {
     setPreferrence({
       ...preferrence,
       preferred_slots: newTimeslots,
-      ...preferrence
+
     });
 
 
