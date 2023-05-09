@@ -4,7 +4,7 @@ import CourseInstructor from "./screens/CourseInstructor";
 import LabInstructor from "./screens/LabInstructor";
 import MainPage from "./screens/MainPage";
 import { Route, Router,Routes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Route path='/lab' element={<LabInstructor />}/>
 
 
-      </Routes>
+    </Routes>
   );
 }
 
