@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 
 function CourseInstructor() {
-  const [preferrence, setPreferrence] = useState({});
+  const [preferrence, setPreferrence] = useState({
+    course_name: '',
+    preferred_slots: ['', '', '', '', '']
+  });
+  const [instructors, setInstructors] = useState([])
 
-  // const [course, setCourse] = useState("");
-  // const [timeslots, setTimeslots] = useState(["", "", "", "", ""]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Sending the JSON object preferrence to backend using POST
     const response = await fetch('http://localhost:8080/demo', {
       method:'POST',
       body:JSON.stringify(preferrence),
@@ -16,28 +21,31 @@ function CourseInstructor() {
       }
 
     })
+
+    // getting data back from backend and on console
     const data = await response.json()
     console.log(data)
-    // Do something with the form data
+
+    // Setting the values in input field to null when submit is clicked
+    setPreferrence({
+      course_name: '',
+      preferred_slots: ['', '', '', '', '']
+    })
+
   };
 
-  // const handleCourseChange = (e) => {
-  //   setCourse({
-  //     ...e.target.value
-  //   });
-  // };
 
-  // const handleTimeslotChange = (e, index) => {
-  //   const newTimeslots = [...timeslots];
-  //   newTimeslots[index] = e.target.value;
-  //   setTimeslots(newTimeslots);
-  // };
+  const handleOnChange = (event, index) => {
 
-  const handleOnChange = (e) => {
+    const newTimeslots = [...preferrence.preferred_slots];
+    newTimeslots[index] = event.target.value;
+
     setPreferrence({
       ...preferrence,
-      [e.target.name] : e.target.value
-    })
+      preferred_slots: newTimeslots
+    });
+
+
   }
 
   const getInstructors = async ()=>{
@@ -47,7 +55,7 @@ function CourseInstructor() {
 
     })
     const data = await response.json()
-    console.log(data)
+    setInstructors(data)
   }
 
   useEffect(()=>{
@@ -57,60 +65,36 @@ function CourseInstructor() {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Course:
-        <input type="text" name="course_name" onChange={handleOnChange} />
-      </label>
-      <br />
-      <label>
-        Timeslot 1:
-        <input
-          type="text"
-          name="preferred_slots"
 
-          onChange={handleOnChange}
-        />
-      </label>
-      {/* <br /> */}
-      {/* <label>
-        Timeslot 2:
+  <div className="container1">
+    <div className="main1">
+
+     <form onSubmit={handleSubmit}>
+     <h1>Course Instructor</h1>
+      <p>Course Name</p>
         <input
           type="text"
-          value={timeslots[1]}
-          onChange={(e) => handleTimeslotChange(e, 1)}
+          placeholder="Course Name"
+          value={preferrence.course_name}
+          onChange={(event) => setPreferrence({ ...preferrence, course_name: event.target.value })}
         />
-      </label>
-      <br />
-      <label>
-        Timeslot 3:
-        <input
-          type="text"
-          value={timeslots[2]}
-          onChange={(e) => handleTimeslotChange(e, 2)}
-        />
-      </label>
-      <br />
-      <label>
-        Timeslot 4:
-        <input
-          type="text"
-          value={timeslots[3]}
-          onChange={(e) => handleTimeslotChange(e, 3)}
-        />
-      </label>
-      <br />
-      <label>
-        Timeslot 5:
-        <input
-          type="text"
-          value={timeslots[4]}
-          onChange={(e) => handleTimeslotChange(e, 4)}
-        />
-      </label> */}
-      <br />
+      {preferrence.preferred_slots.map((timeslot, index) => (
+        <div key={index}>
+
+            <p>Timeslot {index+1}</p>
+            <input
+              type="text"
+              placeholder="eg 11:30 - 1:00"
+              value={timeslot}
+              onChange={(event) => handleOnChange(event, index)}
+            />
+
+        </div>
+      ))}
       <button type="submit">Submit</button>
     </form>
+  </div>
+  </div>
   );
 }
 

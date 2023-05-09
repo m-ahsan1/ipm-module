@@ -1,0 +1,52 @@
+.container1{
+
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  padding: 20px;
+
+}
+
+.main1 {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh; /* set a fixed height to fill the entire viewport */
+  border-radius: 10px;
+}
+
+.main1 h1 {
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 40px;
+}
+
+.main1 input {
+  font-size: 16px;
+  padding: 15px 10px;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+}
+
+.main1 p{
+  text-align: center;
+  font-size: 17px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.main1 button {
+
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 10px 15px;
+  width: 50%;
+  border: 0;
+  border-radius: 6px;
+  background-color: #fff;
+
+}
