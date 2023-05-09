@@ -40,6 +40,15 @@ function CourseInstructor() {
     })
   }
 
+  const getInstructors = async ()=>{
+    const response = await fetch('http://localhost:8080/demo', {
+      method:'GET',
+
+
+    })
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <form onSubmit={handleSubmit}>
       <label>
