@@ -1,4 +1,12 @@
+.container1{
 
+  background-color: #e6e6e6;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  overflow: auto;
+
+}
 
 .main1 {
   font-family: sans-serif;
@@ -18,12 +26,12 @@
 }
 
 .main1 input {
-  font-size: 14px;
-  padding: 14px 10px;
+  font-size: 16px;
+  padding: 15px 10px;
   width: 100%;
   border: 0;
   border-radius: 5px;
-  /* outline: none; */
+  outline: none;
 }
 
 .main1 p{
