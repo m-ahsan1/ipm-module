@@ -8,8 +8,9 @@ function LabInstructor() {
 
 
   const [preferrence, setPreferrence] = useState({
-    lab_name: '',
-    preferred_slots: ['', '', '', '', ''],
+    name: '',
+    lab_names: ['', '', '', '', ''],
+    preferred_slots: ['', ''],
     grade:'',
     cgpa:'',
     university:'',
@@ -39,8 +40,9 @@ function LabInstructor() {
 
     // Setting the values in input field to null when submit is clicked
     setPreferrence({
-      lab_name: '',
-      preferred_slots: ['', '', '', '', ''],
+      name: '',
+      lab_names: ['', '', '', '', ''],
+      preferred_slots: ['', ''],
       grade:'',
       cgpa:'',
       university:'',
@@ -50,7 +52,21 @@ function LabInstructor() {
   };
 
 
-  const handleOnChange = (event, index) => {
+  const handleOnLabChange = (event, index) => {
+
+    const newLab = [...preferrence.lab_names];
+    newLab[index] = event.target.value;
+
+    setPreferrence({
+      ...preferrence,
+      lab_names: newLab,
+
+    });
+
+
+  }
+
+  const handleOnSlotChange = (event, index) => {
 
     const newTimeslots = [...preferrence.preferred_slots];
     newTimeslots[index] = event.target.value;
@@ -65,28 +81,47 @@ function LabInstructor() {
   }
 
 
+
   return (
     <div className="container1">
-    <div className="main1">
+
 
      <form onSubmit={handleSubmit}>
      <h1>Lab Instructor</h1>
-      <p>Lab Name</p>
+      <p>Name</p>
         <input
           type="text"
-          placeholder="Lab Name"
-          value={preferrence.lab_name}
-          onChange={(event) => setPreferrence({ ...preferrence, lab_name: event.target.value })}
+          placeholder="Full Name"
+          value={preferrence.name}
+          onChange={(event) => setPreferrence({ ...preferrence, name: event.target.value })}
         />
+
+      {preferrence.lab_names.map((lab, index) => (
+        <div key={index}>
+
+            <p>Preferred Lab {index+1}</p>
+
+            <input
+              type="text"
+              placeholder="eg Operating Systems Lab"
+              value={lab}
+              onChange={(event) => handleOnLabChange(event, index)}
+            />
+
+        </div>
+
+
+      ))}
       {preferrence.preferred_slots.map((timeslot, index) => (
         <div key={index}>
 
-            <p>Timeslot {index+1}</p>
+            <p>Preferred Timeslot {index+1}</p>
+
             <input
               type="text"
               placeholder="eg 11:30 - 1:00"
               value={timeslot}
-              onChange={(event) => handleOnChange(event, index)}
+              onChange={(event) => handleOnSlotChange(event, index)}
             />
 
         </div>
@@ -123,7 +158,7 @@ function LabInstructor() {
         />
       <button type="submit">Submit</button>
     </form>
-  </div>
+
   </div>
   )
 }

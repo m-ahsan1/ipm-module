@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+
 function CourseInstructor() {
   const [preferrence, setPreferrence] = useState({
-    course_name: '',
-    preferred_slots: ['', '', '', '', '']
+    name:'',
+    course_names: ['', '', '', '', ''],
+    non_preferred_slots: ['', ''],
+    unavailable_slots: ['', '']
   });
   const [instructors, setInstructors] = useState([])
 
@@ -11,6 +14,7 @@ function CourseInstructor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     // Sending the JSON object preferrence to backend using POST
     const response = await fetch('http://localhost:8080/demo', {
@@ -28,25 +32,35 @@ function CourseInstructor() {
 
     // Setting the values in input field to null when submit is clicked
     setPreferrence({
-      course_name: '',
-      preferred_slots: ['', '', '', '', '']
+      name:'',
+      course_names: ['', '', '', '', ''],
+      non_preferred_slots: ['', ''],
+      unavailable_slots: ['', '']
     })
 
   };
 
 
-  const handleOnChange = (event, index) => {
+  const handleCourseChange = (event, index) => {
+    const newCourses = [...preferrence.course_names];
+    newCourses[index] = event.target.value;
+    setPreferrence({ ...preferrence, course_names: newCourses });
+  };
 
-    const newTimeslots = [...preferrence.preferred_slots];
+  const handleNonPreferredChange = (event, index) => {
+    const newTimeslots = [...preferrence.non_preferred_slots];
     newTimeslots[index] = event.target.value;
+    setPreferrence({ ...preferrence, non_preferred_slots: newTimeslots });
+  };
 
-    setPreferrence({
-      ...preferrence,
-      preferred_slots: newTimeslots
-    });
+  const handleUnavailableChange = (event, index) => {
+    const newUnTimeslots = [...preferrence.unavailable_slots];
+    newUnTimeslots[index] = event.target.value;
+    setPreferrence({ ...preferrence, unavailable_slots: newUnTimeslots });
+  };
 
 
-  }
+
 
   const getInstructors = async ()=>{
     const response = await fetch('http://localhost:8080/demo', {
@@ -71,26 +85,55 @@ function CourseInstructor() {
 
      <form onSubmit={handleSubmit}>
      <h1>Course Instructor</h1>
-      <p>Course Name</p>
+      <p>Name</p>
         <input
           type="text"
-          placeholder="Course Name"
-          value={preferrence.course_name}
-          onChange={(event) => setPreferrence({ ...preferrence, course_name: event.target.value })}
+          placeholder="Full Name"
+          value={preferrence.name}
+          onChange={(event) => setPreferrence({ ...preferrence, name: event.target.value })}
         />
-      {preferrence.preferred_slots.map((timeslot, index) => (
+
+     {preferrence.course_names.map((course, index) => (
+          <div key={index}>
+
+              <p>Course {index+1}</p>
+              <input
+                type="text"
+                placeholder="eg Software Engineering"
+                value={course}
+                onChange={(event) => handleCourseChange(event, index)}
+              />
+
+          </div>
+        ))}
+
+      {preferrence.non_preferred_slots.map((timeslot, index) => (
         <div key={index}>
 
-            <p>Timeslot {index+1}</p>
+            <p>Non Preferred Timeslot {index+1}</p>
             <input
               type="text"
               placeholder="eg 11:30 - 1:00"
-              value={timeslot}
-              onChange={(event) => handleOnChange(event, index)}
+              value={preferrence.non_preferred_slots[index]}
+              onChange={(event) => handleNonPreferredChange(event, index)}
             />
 
         </div>
       ))}
+
+      {preferrence.unavailable_slots.map((timeslot, index) => (
+              <div key={index}>
+
+                  <p>Un Available Timeslot {index+1}</p>
+                  <input
+                    type="text"
+                    placeholder="eg 11:30 - 1:00"
+                    value={timeslot}
+                    onChange={(event) => handleUnavailableChange(event, index)}
+                  />
+
+              </div>
+            ))}
       <button type="submit">Submit</button>
     </form>
   </div>
